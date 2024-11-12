@@ -394,7 +394,7 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
-# Rider - archivos de configuración y temporales específicos
+# Rider - archivos de configuraciï¿½n y temporales especï¿½ficos
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/usage.statistics.xml
@@ -415,7 +415,7 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
-# Rider - archivos de configuración y temporales específicos
+# Rider - archivos de configuraciï¿½n y temporales especï¿½ficos
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/usage.statistics.xml
@@ -432,7 +432,9 @@ FodyWeavers.xsd
 .idea/.idea_modules
 .idea/assetWizardSettings.xml
 
-# Rider - caché de solución
+# Rider - cachï¿½ de soluciï¿½n
 .idea/.cache/
 .idea/.data/
 .idea/.index/
+
+obj/**/
