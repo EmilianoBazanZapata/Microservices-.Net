@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Kx8SgNrMy7zu3Bv6AOXVQ0Cc6EDGuUNdN5sPqirtcZeJlbOCiHBoCEmfi2tZitiBF2tfvwpAQumLePbdI3IJCg==",
+  "success": true,
+  "projectFilePath": "D:\\Courses\\Microservices\\CourseMicroservices\\NetRabbitMq\\Producer\\Producer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Emiliano\\.nuget\\packages\\rabbitmq.client\\7.0.0\\rabbitmq.client.7.0.0.nupkg.sha512",
+    "C:\\Users\\Emiliano\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
+    "C:\\Users\\Emiliano\\.nuget\\packages\\system.threading.ratelimiting\\8.0.0\\system.threading.ratelimiting.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
