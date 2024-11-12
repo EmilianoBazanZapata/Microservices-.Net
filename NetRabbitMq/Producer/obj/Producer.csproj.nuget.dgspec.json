@@ -35,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -43,7 +48,7 @@
           "dependencies": {
             "RabbitMQ.Client": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[6.8.1, )"
             }
           },
           "imports": [
