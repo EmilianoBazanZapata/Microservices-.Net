@@ -4,6 +4,8 @@ using RabbitMQ.Client;
 var factory = new ConnectionFactory
 {
     HostName = "localhost",
+    UserName = "Emiliano",
+    Password = "Legion501#"
 };
 
 using (var connection = factory.CreateConnection())
