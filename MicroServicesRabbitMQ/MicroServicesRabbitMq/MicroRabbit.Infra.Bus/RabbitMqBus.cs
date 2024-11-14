@@ -6,6 +6,7 @@ using MicroRabbit.Domain.Core.Events;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using Newtonsoft.Json;
+using RabbitMQ.Client.Events;
 
 namespace MicroRabbit.Infra.Bus;
 
@@ -46,6 +47,85 @@ public sealed class RabbitMqBus(IMediator mediator, IOptions<RabbitMqSettings> s
 
     public void Subscribe<T, TH>() where T : Event where TH : IEventHandler
     {
-        throw new NotImplementedException();
+        var eventName = typeof(T).Name;
+        var hanlderType = typeof(TH);
+
+        if (!_eventTypes.Contains(typeof(T)))
+            _eventTypes.Add(typeof(T));
+
+        if (!_handlers.ContainsKey(eventName))
+            _handlers.Add(eventName, new List<Type>());
+
+        if (_handlers[eventName].Any(s => s.GetType() == hanlderType))
+            throw new ArgumentException(
+                $"El handler exception {hanlderType.Name} ya fue registrado anteriormente por '{eventName}'",
+                nameof(hanlderType));
+
+        _handlers[eventName].Add(hanlderType);
+
+        StartBasicConsume<T>();
+    }
+
+    private void StartBasicConsume<T>() where T : Event
+    {
+        var factory = new ConnectionFactory
+        {
+            HostName = _settings.HostName,
+            UserName = _settings.UserName,
+            Password = _settings.Password,
+            DispatchConsumersAsync = true
+        };
+
+        var connection = factory.CreateConnection();
+        var channel = connection.CreateModel();
+
+        var eventName = typeof(T).Name;
+        
+        channel.QueueDeclare(eventName,false,false,false,null);
+
+        var consumer = new AsyncEventingBasicConsumer(channel);
+
+        consumer.Received += Consumer_Recived;
+
+        channel.BasicConsume(eventName,true,consumer);
+    }
+
+    private async Task Consumer_Recived(object sender, BasicDeliverEventArgs e)
+    {
+        var eventName = e.RoutingKey;
+        var message = Encoding.UTF8.GetString(e.Body.Span);
+
+        try
+        {
+            await ProcessEvent(eventName, message).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            
+        }
+    }
+
+    private async Task ProcessEvent(string eventName, string message)
+    {
+        if (_handlers.ContainsKey(eventName))
+        {
+            var subsciptions = _handlers[eventName];
+
+            foreach (var subsciption in subsciptions)
+            {
+                var hanlder = Activator.CreateInstance(subsciption);
+
+                if (hanlder == null) continue;
+
+                var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
+
+                var @event = JsonConvert.DeserializeObject(message, eventType);
+
+                var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+
+
+                await (Task) concreteType.GetMethod("Handle").Invoke(hanlder,new object[] {@event});
+            }
+        }
     }
 }
