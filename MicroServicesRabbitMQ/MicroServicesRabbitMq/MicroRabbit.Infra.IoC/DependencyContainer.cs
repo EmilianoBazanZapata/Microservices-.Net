@@ -1,3 +1,4 @@
+using System.Reflection;
 using MicroRabbit.Banking.Application.Interfaces;
 using MicroRabbit.Banking.Application.Services;
 using MicroRabbit.Banking.Data.Context;
@@ -15,6 +16,9 @@ public class DependencyContainer
     public static void RegisterServices(IServiceCollection services, 
                                         IConfiguration configuration)
     {
+        //MediatR mediator
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyContainer).Assembly));
+
         //Domain Bus
         services.AddTransient<IEventBus, RabbitMqBus>();
         services.Configure<RabbitMqSettings>(c => configuration.GetSection("RabbitMqSettings"));
