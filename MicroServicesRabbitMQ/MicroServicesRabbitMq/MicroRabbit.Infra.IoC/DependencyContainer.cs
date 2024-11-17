@@ -13,7 +13,5 @@ public class DependencyContainer
         //Domain Bus
         services.AddTransient<IEventBus, RabbitMqBus>();
         services.Configure<RabbitMqSettings>(c => configuration.GetSection("RabbitMqSettings"));
-        
-        
     }
 }
