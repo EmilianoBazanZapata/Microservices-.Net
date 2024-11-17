@@ -15,10 +15,12 @@ public sealed class RabbitMqBus(IMediator mediator, IOptions<RabbitMqSettings> s
     private readonly Dictionary<string, List<Type>> _handlers = new();
     private readonly List<Type> _eventTypes = new();
     private readonly RabbitMqSettings _settings = settings.Value;
+    private readonly IMediator _mediator = mediator;
+
 
     public Task SendCommand<T>(T command) where T : Command
     {
-        return mediator.Send(command);
+        return _mediator.Send(command);
     }
 
     public void Publish<T>(T @event) where T : Event
