@@ -3,12 +3,12 @@ using MicroRabbit.Infra.Bus;
 using MicroRabbit.Infra.IoC;
 using MicroRabbit.Transfer.Data.Context;
 using MicroRabbit.Transfer.Data.Repository;
-using MicroRabbit.Transfer.Domain.EventHandlers;
 using MicroRabbit.Transfer.Domain.Events;
 using MicroRabbit.Transfer.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using MicroRabbit.Banking.Application.Services;
 using MicroRabbit.Banking.Application.Interfaces;
+using MicroRabbit.Transfer.Domain.EventsHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +31,9 @@ builder.Services.AddTransient<IEventHandler<TransferCreateEvent>, TransferEventH
 
 //Data
 builder.Services.AddTransient<TransferDbContext>();
+
+//Subscriptions
+builder.Services.AddTransient<TransferEventHandler>();
 
 //CORS
 builder.Services.AddCors(options =>

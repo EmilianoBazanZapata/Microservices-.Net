@@ -13,7 +13,7 @@
 <ItemGroup>
     <Folder Include="CommandHandlers\" />
     <Folder Include="Commands\" />
-    <Folder Include="EventHandlers\" />
+    <Folder Include="EventsHandlers\" />
 </ItemGroup>
 
 </Project>
