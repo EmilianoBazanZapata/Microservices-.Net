@@ -4,8 +4,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>MicroRabbit.Banking.Application</AssemblyName>
-        <RootNamespace>MicroRabbit.Banking.Application</RootNamespace>
+        <AssemblyName>MicroRabbit.Transfer.Application</AssemblyName>
+        <RootNamespace>MicroRabbit.Transfer.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

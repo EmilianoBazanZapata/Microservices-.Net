@@ -1,12 +1,14 @@
-using MicroRabbit.Banking.Application.Interfaces;
-using MicroRabbit.Banking.Application.Services;
-using MicroRabbit.Banking.Data.Context;
+using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.Bus;
 using MicroRabbit.Infra.IoC;
 using MicroRabbit.Transfer.Data.Context;
 using MicroRabbit.Transfer.Data.Repository;
+using MicroRabbit.Transfer.Domain.EventHandlers;
+using MicroRabbit.Transfer.Domain.Events;
 using MicroRabbit.Transfer.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using MicroRabbit.Banking.Application.Services;
+using MicroRabbit.Banking.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,13 +25,12 @@ builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("R
 // Configurar IoC personalizado
 builder.Services.RegisterServices(builder.Configuration);
 
-
 builder.Services.AddTransient<ITransferService, TransferService>();
 builder.Services.AddTransient<ITransferRepository, TransferRepository>();
+builder.Services.AddTransient<IEventHandler<TransferCreateEvent>, TransferEventHandler>();
 
 //Data
 builder.Services.AddTransient<TransferDbContext>();
-
 
 //CORS
 builder.Services.AddCors(options =>
@@ -41,6 +42,9 @@ builder.Services.AddCors(options =>
 
 // Construir aplicación
 var app = builder.Build();
+
+var eventBus = app.Services.GetRequiredService<IEventBus>();
+eventBus.Subscribe<TransferCreateEvent, TransferEventHandler>();
 
 // Middleware
 if (app.Environment.IsDevelopment())
