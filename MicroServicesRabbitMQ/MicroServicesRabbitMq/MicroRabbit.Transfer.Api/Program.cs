@@ -5,10 +5,10 @@ using MicroRabbit.Transfer.Data.Context;
 using MicroRabbit.Transfer.Data.Repository;
 using MicroRabbit.Transfer.Domain.Events;
 using MicroRabbit.Transfer.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using MicroRabbit.Banking.Application.Services;
 using MicroRabbit.Banking.Application.Interfaces;
 using MicroRabbit.Transfer.Domain.EventsHandlers;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Progr
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TransferDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TransferDbConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("TransferDbConnection")));
 
 builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMqSettings"));
 

@@ -78,6 +78,7 @@ public sealed class RabbitMqBus(IMediator mediator,
             HostName = _settings.HostName,
             UserName = _settings.UserName,
             Password = _settings.Password,
+            Uri = new Uri(_settings.Url),
             DispatchConsumersAsync = true
         };
 

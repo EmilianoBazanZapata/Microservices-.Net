@@ -18,7 +18,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Progr
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BankingDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BankingDbConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("BankingDbConnection")));
 
 builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMqSettings"));
 
