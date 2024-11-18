@@ -13,7 +13,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BankingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BankingDbConnection")));
 
-var a = builder.Configuration.GetSection("RabbitMqSettings");
 builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMqSettings"));
 
 // Configurar IoC personalizado

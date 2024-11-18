@@ -1,6 +1,7 @@
 using MicroRabbit.Banking.Data.Context;
 using MicroRabbit.Infra.Bus;
 using MicroRabbit.Infra.IoC;
+using MicroRabbit.Transfer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<BankingDbContext>(options =>
+builder.Services.AddDbContext<TransferDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TransferDbConnection")));
 
-var a = builder.Configuration.GetSection("RabbitMqSettings");
 builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMqSettings"));
 
 // Configurar IoC personalizado
