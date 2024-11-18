@@ -1,4 +1,5 @@
 using MicroRabbit.Banking.Data.Context;
+using MicroRabbit.Infra.Bus;
 using MicroRabbit.Infra.IoC;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +13,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BankingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BankingDbConnection")));
 
+var a = builder.Configuration.GetSection("RabbitMqSettings");
+builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMqSettings"));
+
 // Configurar IoC personalizado
-DependencyContainer.RegisterServices(builder.Services, builder.Configuration);
+builder.Services.RegisterServices(builder.Configuration);
+
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
+                                                                         .AllowAnyMethod()
+                                                                         .AllowAnyHeader());
+});
 
 // Construir aplicación
 var app = builder.Build();
@@ -25,8 +37,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAll"); // Activar CORS
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.UseCors("CorsPolicy"); // Activar CORS
+
+app.UseHttpsRedirection();
+
 app.MapControllers();
 
 app.Run();
