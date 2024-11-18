@@ -29,6 +29,7 @@ public static class DependencyContainer
 
         //Application Services
         services.AddTransient<IAccountService, AccountService>();
+        services.AddTransient<ITransferService, TransferService>();
 
         //Data
         services.AddTransient<IAccountRepository, AccountRepository>();

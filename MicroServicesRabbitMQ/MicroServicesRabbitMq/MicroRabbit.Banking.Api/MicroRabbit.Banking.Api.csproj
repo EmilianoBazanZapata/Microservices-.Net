@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Microrabbit.Banking.Application\Microrabbit.Banking.Application.csproj" />
       <ProjectReference Include="..\MicroRabbit.Infra.IoC\MicroRabbit.Infra.IoC.csproj" />
     </ItemGroup>
 
