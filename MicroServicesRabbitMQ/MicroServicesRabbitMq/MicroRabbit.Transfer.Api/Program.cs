@@ -1,7 +1,11 @@
+using MicroRabbit.Banking.Application.Interfaces;
+using MicroRabbit.Banking.Application.Services;
 using MicroRabbit.Banking.Data.Context;
 using MicroRabbit.Infra.Bus;
 using MicroRabbit.Infra.IoC;
 using MicroRabbit.Transfer.Data.Context;
+using MicroRabbit.Transfer.Data.Repository;
+using MicroRabbit.Transfer.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +22,14 @@ builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("R
 
 // Configurar IoC personalizado
 builder.Services.RegisterServices(builder.Configuration);
+
+
+builder.Services.AddTransient<ITransferService, TransferService>();
+builder.Services.AddTransient<ITransferRepository, TransferRepository>();
+
+//Data
+builder.Services.AddTransient<TransferDbContext>();
+
 
 //CORS
 builder.Services.AddCors(options =>

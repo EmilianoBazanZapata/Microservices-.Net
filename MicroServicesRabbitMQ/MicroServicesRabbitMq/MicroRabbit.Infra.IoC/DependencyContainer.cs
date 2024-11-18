@@ -1,7 +1,4 @@
-using System.Reflection;
 using MediatR;
-using MicroRabbit.Banking.Application.Interfaces;
-using MicroRabbit.Banking.Application.Services;
 using MicroRabbit.Banking.Data.Context;
 using MicroRabbit.Banking.Data.Repository;
 using MicroRabbit.Banking.Domain.CommandHandlers;
@@ -19,7 +16,7 @@ public static class DependencyContainer
 {
     public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddTransient<IRequestHandler<CreateTransferCommand, bool>, TransferCommandHandler>();
+        //services.AddTransient<IRequestHandler<CreateTransferCommand, bool>, TransferCommandHandler>();
         
         //MediatR mediator
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyContainer).Assembly));
@@ -28,13 +25,13 @@ public static class DependencyContainer
         services.AddTransient<IEventBus, RabbitMqBus>();
 
         //Application Services
-        services.AddTransient<IAccountService, AccountService>();
-        services.AddTransient<ITransferService, TransferService>();
+        //services.AddTransient<IAccountService, AccountService>();
+        //services.AddTransient<ITransferService, TransferService>();
 
         //Data
-        services.AddTransient<IAccountRepository, AccountRepository>();
-        services.AddTransient<BankingDbContext>();
-        services.AddTransient<TransferDbContext>();
+        //services.AddTransient<IAccountRepository, AccountRepository>();
+        //services.AddTransient<BankingDbContext>();
+        //services.AddTransient<TransferDbContext>();
 
         return services;
     }
