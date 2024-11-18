@@ -9,6 +9,7 @@ using MicroRabbit.Banking.Domain.Commands;
 using MicroRabbit.Banking.Domain.Interfaces;
 using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.Bus;
+using MicroRabbit.Transfer.Data.Context;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,6 +33,7 @@ public static class DependencyContainer
         //Data
         services.AddTransient<IAccountRepository, AccountRepository>();
         services.AddTransient<BankingDbContext>();
+        services.AddTransient<TransferDbContext>();
 
         return services;
     }
