@@ -4,12 +4,18 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AssemblyName>MicroRabbit.Banking.Application</AssemblyName>
+        <RootNamespace>MicroRabbit.Banking.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Interfaces\" />
-      <Folder Include="Models\" />
-      <Folder Include="Services\" />
+        <ProjectReference Include="..\MicroRabbit.Transfer.Data\MicroRabbit.Transfer.Data.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Interfaces\"/>
+        <Folder Include="Models\"/>
+        <Folder Include="Services\"/>
     </ItemGroup>
 
 </Project>
