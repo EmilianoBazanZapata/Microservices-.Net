@@ -19,7 +19,6 @@
     <Folder Include="Commands\" />
     <Folder Include="Events\" />
     <Folder Include="EventHandlers\" />
-    <Folder Include="Interfaces\" />
 </ItemGroup>
 
 </Project>
