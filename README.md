@@ -1,5 +1,5 @@
 
-# 🏗️ Clean Architecture Microservices con ASP.NET 6, RabbitMQ y Docker
+# 🏗️ Clean Architecture Microservices con ASP.NET 8, RabbitMQ y Docker
 
 Este es un proyecto educativo desarrollado como parte del curso **"Clean Architecture en Microservices con ASP.NET 8 RabbitMQ y Docker Containers | CQRS | IoC | Docker Containers"** de **Vazy Drez**. Este proyecto implementa microservicios siguiendo los principios de Clean Architecture y patrones como **CQRS**, **IoC**, y el uso de **RabbitMQ** para la comunicación entre microservicios.
 
