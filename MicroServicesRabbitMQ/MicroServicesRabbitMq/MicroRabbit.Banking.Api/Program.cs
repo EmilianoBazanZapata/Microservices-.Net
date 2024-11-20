@@ -17,49 +17,45 @@ builder.Services.AddControllers();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configuración de DbContext
 builder.Services.AddDbContext<BankingDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("BankingDbConnection")));
 
+// Configurar RabbitMQ
 builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMqSettings"));
 
 // Configurar IoC personalizado
 builder.Services.RegisterServices(builder.Configuration);
 
-builder.Services.AddTransient<IRequestHandler<CreateTransferCommand, bool>, TransferCommandHandler>();
-
-//Application Services
+// Application Services
 builder.Services.AddTransient<IAccountService, AccountService>();
 
-//Data
+// Data Layer
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<BankingDbContext>();
 
-//CORS
+// Command Handlers
+builder.Services.AddTransient<IRequestHandler<CreateTransferCommand, bool>, TransferCommandHandler>();
+
+// CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
-                                                                         .AllowAnyMethod()
-                                                                         .AllowAnyHeader());
+    options.AddPolicy("CorsPolicy", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
 });
 
 // Construir aplicación
 var app = builder.Build();
 
 // Middleware
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.UseCors("CorsPolicy"); // Activar CORS
-
-app.UseHttpsRedirection();
-
 app.MapControllers();
-
 app.Run();
