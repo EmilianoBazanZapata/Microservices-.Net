@@ -130,7 +130,7 @@ Consulta ante cualquier duda o adapta el proceso a tus necesidades.
 ---
 
 ## 📚 Recursos Relacionados
-- **Curso de Vazy Drez**: [Enlace al curso](https://www.udemy.com/share/105NX43@IX5aIAOAPNIs9FacO-X_wDRU8F7tUNbp3o4oLNcqATu4L38JESFTaLiJLW6fMqxqbA==/)
+- **Curso de Vaxy Drez**: [Enlace al curso](https://www.udemy.com/share/105NX43@IX5aIAOAPNIs9FacO-X_wDRU8F7tUNbp3o4oLNcqATu4L38JESFTaLiJLW6fMqxqbA==/)
 - **Documentación de RabbitMQ**: [rabbitmq.com](https://www.rabbitmq.com/)
 - **Documentación de Supabase**: [supabase.com](https://supabase.com/)
 - **Documentación de ASP.NET Core**: [learn.microsoft.com](https://learn.microsoft.com/es-es/aspnet/core/)
